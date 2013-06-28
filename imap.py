@@ -10,7 +10,7 @@ import imaplib
 import email
 
 # Zugangsdaten Gmail-Server
-username = '' # you Gmail Username
+username = '' # your Gmail Username
 password = '' # your pw
 mailbox = 'INBOX' # inbox is default
 mailserver = 'imap.gmail.com'
