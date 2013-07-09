@@ -101,11 +101,15 @@ def moveSnake():
         x, y = snakePart
         livingSpace[y][x] = ' '
 
-    print snakePosition
     x, y    = snakePosition[0]
     dx, dy  = snakeDirection
     newHeadPosition = (x + dx, y + dy)
-    collisionDetection(newHeadPosition)
+
+    collisionEvent = collisionDetection(newHeadPosition)
+    if collisionEvent == EATAPPLE:
+        global snakeExpansion
+        snakeExpansion += 4
+
     snakePosition.insert(0, newHeadPosition)
     snakePosition.pop()
     print snakePosition
