@@ -3,8 +3,14 @@
 # Autor: Josef Florian Sedlmeier
 # Game Of Life
 
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import pygame, math, datetime
+from pygame.locals import *
+
 livingSpaceWidth  = 100
 livingSpaceHeight = 60
+creatureSize = 10
 
 # zufaellige Initialisierung des Lebensraumes
 livingSpace = []
@@ -13,6 +19,39 @@ def initLivingSpace():
         livingSpace.append([])
         for y in range(livingSpaceHeight):
             livingSpace[x].append(random.randint(0,1))
+
+def resize((width, heigth)):
+    if height == 0:
+        height = 1
+    glViewport(0, 0, width, height)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glOrtho(-10.0, livingSpaceWidth * 10.0 + 10.0, livingSpaceHeight * 10.0 + 10.0, -10.0, -6.0, 0.0)
+    glMatrixMode(GL_MODEVIEW)
+    glLoadIdentity()
+
+def init():
+    glClearColor(0.0, 0.0, 0.0, 0.0)
+
+def isAlive(x, y):
+    return livingSpace[x][y] == 1
+
+def draw():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    glranslate(0.0, 0.0, 3.0)
+    glColor4f(1.0, 0.0, 0.0, 1.0)
+    glBegin(GL_QUADS)
+    for column in range(livingSpaceWidth):
+        for row in range(livingSpaceHeight):
+            if isAlive(column, row):
+                x = column * 10.0
+                y = row * 10.0
+                glVertex3f(x, y, 0.0)
+                glVertex3f(9.0 + x, y, 0.0)
+                glVertex3f(9.0 + x, 9.0 + y, 0.0)
+                glVertex3f(x, 9.0 + y, 0.0)
+    glEnd()
 
 def main():
     video_flags = OPENGL | HWSURFACE | DOUBLEBUF
@@ -30,12 +69,10 @@ def main():
     ticks = pygame.time.get_ticks()
     while True:
         event = pygame.event.poll()
-        if event.type == QUIT or
-         (event.type == KEYDOWN and event.key == K_ESCAPE):
-             break
+        if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+            break
+            draw()
+            calculateNextGeneration()
+            pygame.display.flip()
 
-         draw()
-         calculateNextGeneration()
-         pygame.display.flip()
-
-IF __name__ == '__main__': main()
+if __name__ == '__main__': main()
