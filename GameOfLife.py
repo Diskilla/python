@@ -18,7 +18,10 @@ def initLivingSpace():
     for x in range(livingSpaceWidth):
         livingSpace.append([])
         for y in range(livingSpaceHeight):
-            livingSpace[x].append(random.randint(0, 1))
+            if random.randint(0, 1) == 1:
+                livingSpace[x].append(1000)
+            else:
+                livingSpace[x].append(0)
 
 def resize((width, height)):
     if height == 0:
@@ -34,23 +37,23 @@ def init():
     glClearColor(0.0, 0.0, 0.0, 0.0)
 
 def isAlive(x, y):
-    return livingSpace[x][y] == 1
+    return livingSpace[x][y] == 1000
 
 def draw():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
     glTranslatef(0.0, 0.0, 3.0)
-    glColor4f(1.0, 0.0, 0.0, 1.0)
     glBegin(GL_QUADS)
     for column in range(livingSpaceWidth):
         for row in range(livingSpaceHeight):
-            if isAlive(column, row):
-                x = column * 10.0
-                y = row * 10.0
-                glVertex3f(x, y, 0.0)
-                glVertex3f(9.0 + x, y, 0.0)
-                glVertex3f(9.0 + x, 9.0 + y, 0.0)
-                glVertex3f(x, 9.0 + y, 0.0)
+            healthStatus = float(livingSpace[column][row]) / 1000.0
+            glColor4f(healthStatus, 0.0, 0.0, 1.0)
+            x = column * 10.0
+            y = row * 10.0
+            glVertex3f(x, y, 0.0)
+            glVertex3f(9.0 + x, y, 0.0)
+            glVertex3f(9.0 + x, 9.0 + y, 0.0)
+            glVertex3f(x, 9.0 + y, 0.0)
     glEnd()
 
 def getNeighborCount(x, y):
@@ -81,7 +84,7 @@ def calculateNextGeneration():
             if 2 <= neighborCount[column][row] <= 3:
                 if neighborCount[column][row] == 3:
                     # Geburt eines Lebewesens
-                    livingSpace[column][row] = 1
+                    livingSpace[column][row] = 1000
             else:
                 # Tod eines Lebewesens
                 livingSpace[column][row] = 0
