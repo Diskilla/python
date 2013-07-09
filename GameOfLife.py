@@ -47,7 +47,7 @@ def draw():
     for column in range(livingSpaceWidth):
         for row in range(livingSpaceHeight):
             healthStatus = float(livingSpace[column][row]) / 1000.0
-            glColor4f(healthStatus, 0.0, 0.0, 1.0)
+            glColor4f(0.0, 0.0, healthStatus, 1.0)
             x = column * 10.0
             y = row * 10.0
             glVertex3f(x, y, 0.0)
