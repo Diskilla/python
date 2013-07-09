@@ -52,9 +52,7 @@ def init():
     # eine Lichtquelle erstellen
     glLightfv(GL_LIGHT0, GL_AMBIENT, [0.6, 0.6, 0.6, 1.0])
     glLightfv(GL_LIGHT0, GL_DIFFUSE, [0.4, 0.4, 0.4, 1.0])
-    glLightfv(GL_LIGHT0, GL_POSITION,
-    [(livingSpaceWidth * 20.0)/2.0,
-    (livingSpaceHeight * 20.0)/2.0, -500.0, 1.0])
+    glLightfv(GL_LIGHT0, GL_POSITION, [(livingSpaceWidth * 20.0)/2.0, (livingSpaceHeight * 20.0)/2.0, -500.0, 1.0])
     # Aktivierung der erstellten Lichtquelle
     glEnable(GL_LIGHT0)
     # Aktivierung von Materialeigenschaften
