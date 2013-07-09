@@ -1,4 +1,4 @@
-#!/usr/env/bin python
+#!/usr/bin/env python
 
 # Autor: Josef Florian Sedlmeier
 # Game Of Life
@@ -7,7 +7,8 @@ livingSpaceWidth  = 100
 livingSpaceHeight = 60
 
 # zufaellige Initialisierung des Lebensraumes
-def initLivingSpace = []
+livingSpace = []
+def initLivingSpace():
     for x in range(livingSpaceWidth):
         livingSpace.append([])
         for y in range(livingSpaceHeight):
