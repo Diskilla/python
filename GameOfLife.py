@@ -5,7 +5,7 @@
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
-import pygame, math, datetime
+import pygame, math, datetime, random
 from pygame.locals import *
 
 livingSpaceWidth  = 100
@@ -18,16 +18,16 @@ def initLivingSpace():
     for x in range(livingSpaceWidth):
         livingSpace.append([])
         for y in range(livingSpaceHeight):
-            livingSpace[x].append(random.randint(0,1))
+            livingSpace[x].append(random.randint(0, 1))
 
-def resize((width, heigth)):
+def resize((width, height)):
     if height == 0:
         height = 1
     glViewport(0, 0, width, height)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
     glOrtho(-10.0, livingSpaceWidth * 10.0 + 10.0, livingSpaceHeight * 10.0 + 10.0, -10.0, -6.0, 0.0)
-    glMatrixMode(GL_MODEVIEW)
+    glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
 
 def init():
@@ -39,7 +39,7 @@ def isAlive(x, y):
 def draw():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
-    glranslate(0.0, 0.0, 3.0)
+    glTranslatef(0.0, 0.0, 3.0)
     glColor4f(1.0, 0.0, 0.0, 1.0)
     glBegin(GL_QUADS)
     for column in range(livingSpaceWidth):
@@ -52,6 +52,39 @@ def draw():
                 glVertex3f(9.0 + x, 9.0 + y, 0.0)
                 glVertex3f(x, 9.0 + y, 0.0)
     glEnd()
+
+def getNeighborCount(x, y):
+    count = 0
+
+    xpn = (x + 1) % livingSpaceWidth
+    ypn = (y + 1) % livingSpaceHeight
+
+    count += isAlive(x, ypn)
+    count += isAlive(xpn, ypn)
+    count += isAlive(xpn, y)
+    count += isAlive(xpn, y - 1)
+    count += isAlive(x, y - 1)
+    count += isAlive(x - 1, y - 1)
+    count += isAlive(x - 1, y)
+    count += isAlive(y - 1, ypn)
+    return count
+
+def calculateNextGeneration():
+    neighborCount =  []
+    for column in range(livingSpaceWidth):
+        neighborCount.append([])
+        for row in range(livingSpaceHeight):
+            neighborCount[column].append(getNeighborCount(column, row))
+
+    for column in range(livingSpaceWidth):
+        for row in range(livingSpaceHeight):
+            if 2 <= neighborCount[column][row] <= 3:
+                if neighborCount[column][row] == 3:
+                    # Geburt eines Lebewesens
+                    livingSpace[column][row] = 1
+            else:
+                # Tod eines Lebewesens
+                livingSpace[column][row] = 0
 
 def main():
     video_flags = OPENGL | HWSURFACE | DOUBLEBUF
@@ -71,8 +104,8 @@ def main():
         event = pygame.event.poll()
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
             break
-            draw()
-            calculateNextGeneration()
-            pygame.display.flip()
+        draw()
+        calculateNextGeneration()
+        pygame.display.flip()
 
 if __name__ == '__main__': main()
