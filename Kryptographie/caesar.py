@@ -7,14 +7,14 @@ def caesar(text, key):
     for letter in text:
         # index des aktuellen Klartextbuchstabens im Symbolvorrat bestimmen
         index   = symbols.index(letter)
-        # Addition des Schluessels zum Index (um die Laenge des Index verschieben)
-        # und Sicherstellung, dass der Index im gueltigen Bereich bleibt
+        # Addition des Schlüssels zum Index (um die Laenge des Index verschieben)
+        # und Sicherstellung, dass der Index im gültigen Bereich bleibt
         index   = (index + key) % len(symbols)
         cipher += symbols[index]
 
     return cipher
 
-# diese Verschluesselungsmethode ist absolut nicht sicher, da sie mit einem
+# diese Verschlüsselungsmethode ist absolut nicht sicher, da sie mit einem
 # simplen brute-force angriff geknackt werden kann
 def caesar_brute(text):
     decrypted = ""
@@ -23,17 +23,17 @@ def caesar_brute(text):
         decrypted += decrypt
     return decrypted
 # Verwendung der Funktion caesar
-# 'oeffentlichen' Schluessel festlegen
+# 'öffentlichen' Schlüssel festlegen
 key = 4
 symbols = "abcdefghijklmnopqrstuvwxyz "
 plaintext = "diese nachricht kann im prinzip jeder knacken"
 
 encrypted = caesar(plaintext, key)
-# da beim entschluesseln der Index des Buchstaben um den Key reduziert wird, wird
+# da beim entschlüsseln der Index des Buchstaben um den Key reduziert wird, wird
 # dieser einfach mit einem '-' aufgerufen
 decrypted = caesar(encrypted, -key)
 
-# mit bruteforce entschluesselt ohne den key zu kennen
+# mit bruteforce entschlüsselt ohne den key zu kennen
 brute = caesar_brute(encrypted)
 print brute
 
