@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # Skytale implementierung
 
-# Funktion zum Verschlüsseln nach 'Skytale-Methode'
-# Die Textlänge muss glatt (ohne Rest) durch den Umfang teilbar sein.
-# Dies wird mit der Funktion EnsureSideCondition überprüft
+# Funktion zum Verschluesseln nach 'Skytale-Methode'
+# Die Textlaenge muss glatt (ohne Rest) durch den Umfang teilbar sein.
+# Dies wird mit der Funktion EnsureSideCondition ueberprueft.
+# Der Umfang ist bei dieser Methode als oeffentlicher Schluessel zu betrachten.
 def skytale_encrypt(text, umfang):
     text    = ensureSideCondition(text, umfang)
     length  = len(text)
@@ -14,8 +15,8 @@ def skytale_encrypt(text, umfang):
 
     return cipher.upper()
 
-# Prüft, ob die Länge des Strings ohne Rest durch den Umfang teilbar ist.
-# Falls nicht wird der Rest des Strings mit Leerzeichen aufgefüllt.
+# Prueft, ob die Laenge des Strings ohne Rest durch den Umfang teilbar ist.
+# Falls nicht wird der Rest des Strings mit Leerzeichen aufgefuellt.
 def ensureSideCondition(text, umfang):
     length      = len(text)
     remainder   = length % umfang
@@ -26,7 +27,8 @@ def ensureSideCondition(text, umfang):
 
     return text
 
-# Funktion zum Entschlüsseln nach 'Skytale-Methode'
+# Funktion zum Entschluesseln nach 'Skytale-Methode'
+# bekommt als Parameter den verschluesselten Text und den Umfang
 def skytale_decrypt(text, umfang):
     length      = len(text)
     umfang      = length/umfang
@@ -34,3 +36,17 @@ def skytale_decrypt(text, umfang):
     plaintext = skytale_encrypt(text, umfang)
 
     return plaintext.lower()
+
+# Verwendung der Funktionen zum Ver- und Entschluesseln eines Strings
+# 1. oeffentlichen Schluessel (Umfang) definieren
+key = 8
+# 2. Zu verschluesselnden Text definieren
+plaintext = "Es ist viel zu warm ohne Ventilator!"
+# 3. verschluesseln
+cipher = skytale_encrypt(plaintext, key)
+
+#Kontrollausgabe
+print plaintext
+print cipher
+# entschluesseln
+print skytale_decrypt(cipher, key)
