@@ -25,3 +25,12 @@ def ensureSideCondition(text, umfang):
         remainder = length % umfang
 
     return text
+
+# Funktion zum Entschlüsseln nach 'Skytale-Methode'
+def skytale_decrypt(text, umfang):
+    length      = len(text)
+    umfang      = length/umfang
+    print umfang, length
+    plaintext = skytale_encrypt(text, umfang)
+
+    return plaintext.lower()
