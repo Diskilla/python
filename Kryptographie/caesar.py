@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# -*- coding: UTF-8 -*-
 # Caesar-Chiffre implementierung
 
 def caesar(text, key):
@@ -14,6 +14,14 @@ def caesar(text, key):
 
     return cipher
 
+# diese Verschluesselungsmethode ist absolut nicht sicher, da sie mit einem
+# simplen brute-force angriff geknackt werden kann
+def caesar_brute(text):
+    decrypted = ""
+    for x in range (1, 25):
+        decrypt = caesar(text, -x)
+        decrypted += decrypt
+    return decrypted
 # Verwendung der Funktion caesar
 # 'oeffentlichen' Schluessel festlegen
 key = 4
@@ -25,6 +33,10 @@ encrypted = caesar(plaintext, key)
 # dieser einfach mit einem '-' aufgerufen
 decrypted = caesar(encrypted, -key)
 
-print plaintext
-print encrypted
-print decrypted
+# mit bruteforce entschluesselt ohne den key zu kennen
+brute = caesar_brute(encrypted)
+print brute
+
+#~ print plaintext
+#~ print encrypted
+#~ print decrypted
