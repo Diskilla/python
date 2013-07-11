@@ -40,6 +40,25 @@ def calculateBudget(budget, number, numberBet, color, colorBet, realityNumber, r
 
     return budget
 
+def checkReality():
+    realityNumber = random.randint(0, 36)
+    if realityNumber % 2 == 0:
+        if realityNumber == 0:
+            realityColor = 3 # 3 == grün
+        else:
+            realityColor = 1 # 1 == rot
+        else:
+            realityColor = 2 # 2 == schwarz
+
+        return realityNumber, realityColor
+
+def showReality(realityNumber, realityColor, budget):
+    colorDef = 2: "Black", 1: "Red", 3: "Green"
+
+    print "number: ", realityNumber
+    print "color: ", realityColor
+    print "budget: ", budget
+
 while True:
     print "Choose a number: ",
     number      = readInput()
