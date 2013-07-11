@@ -71,3 +71,12 @@ while True:
     if number == -1 and color == -1:
         break
 
+    realityNumber, realityColor = checkReality()
+    budget = calculateBudget(budget, number, numberBet, color, colorBet, realityNumber, realityColor)
+    showReality(realityNumber, realityColor, budget)
+
+    if budget <= 0:
+        break
+
+print "Congratulations, your budget is: ", budget, "Dollar"
+print "Ciao!"
