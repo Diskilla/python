@@ -25,6 +25,21 @@ def askForBet(number):
 
     return bet
 
+def calculateBudget(budget, number, numberBet, color, colorBet, realityNumber, realityColor):
+    if number != -1:
+        budget -= numberBet
+        if number == realityNumber:
+            # 35-fach + Einsatz
+            budget += numberBet*36
+            print budget, "number"
+
+    if color != -1:
+        budget -= colorBet
+        if color == realityColor:
+            budget += colorBet*2
+
+    return budget
+
 while True:
     print "Choose a number: ",
     number      = readInput()
