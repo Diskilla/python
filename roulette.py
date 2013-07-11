@@ -6,18 +6,6 @@
 print "Welcome to Las Vegas!"
 budget = 20
 
-while True:
-    print "Choose a number: ",
-    number      = readInput()
-    numberBet   = askForBet(number)
-
-    print "Red(1) or Black(0):",
-    color       = readInput()
-    colorBet    = askForBet(color)
-
-    if number == -1 and color == -1:
-        break
-
 def readInput():
     guess = raw_input()
     number = -1
@@ -36,3 +24,16 @@ def askForBet(number):
         bet = readInput()
 
     return bet
+
+while True:
+    print "Choose a number: ",
+    number      = readInput()
+    numberBet   = askForBet(number)
+
+    print "Red(1) or Black(0):",
+    color       = readInput()
+    colorBet    = askForBet(color)
+
+    if number == -1 and color == -1:
+        break
+
