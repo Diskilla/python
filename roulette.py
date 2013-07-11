@@ -28,3 +28,11 @@ def readInput():
             print "no valid number", arg
 
         return number
+
+def askForBet(number):
+    bet = 0
+    if number != -1:
+        print "Your bet: ",
+        bet = readInput()
+
+    return bet
