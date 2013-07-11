@@ -3,6 +3,8 @@
 
 # Autor: Josef Florian Sedlmeier
 
+import random
+
 print "Welcome to Las Vegas!"
 budget = 20
 
@@ -47,8 +49,8 @@ def checkReality():
             realityColor = 3 # 3 == grün
         else:
             realityColor = 1 # 1 == rot
-        else:
-            realityColor = 2 # 2 == schwarz
+    else:
+        realityColor = 2 # 2 == schwarz
 
         return realityNumber, realityColor
 
@@ -56,7 +58,7 @@ def showReality(realityNumber, realityColor, budget):
     colorDef = 2: "Black", 1: "Red", 3: "Green"
 
     print "number: ", realityNumber
-    print "color: ", realityColor
+    print "color: ", colorDef.get(realityColor)
     print "budget: ", budget
 
 while True:
